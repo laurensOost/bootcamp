@@ -1,0 +1,4 @@
+name: chart
+description: A generated Helm Chart for yayata from Skippbox Kompose
+version: 0.0.1
+apiVersion: v2

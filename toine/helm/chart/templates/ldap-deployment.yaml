@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: ldap
+  name: ldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ldap
+  template:
+    metadata:
+      labels:
+        io.kompose.service: ldap
+    spec:
+      containers:
+        - image: osixia/openldap:1.1.7
+          name: ldap
+      restartPolicy: Always

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: yayata
+  name: yayata
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: yayata
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: yayata
+    spec:
+      containers:
+        - args:
+            - sh
+            - -c
+            - |2
+                npm install
+                echo '{"oauth2":{"config":{"baseUrl":"http://ninetofiver.localhost","clientId":"application-id"}}}' > /code/src/static/cfg/config.json
+                npm run dev -- --host 0.0.0.0
+          image: k3d-registry.localhost:5000/yayata:latest
+          name: yayata
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
